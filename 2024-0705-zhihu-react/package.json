@@ -8,5 +8,15 @@
   },
   "keywords": [],
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^7.15.0",
+    "@typescript-eslint/parser": "^7.15.0",
+    "eslint": "^9.6.0",
+    "prettier": "^3.3.2"
+  },
+  "dependencies": {
+    "globals": "^15.8.0",
+    "typescript-eslint": "^7.15.0"
+  }
 }
