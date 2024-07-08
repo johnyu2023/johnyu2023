@@ -99,13 +99,15 @@ pnpm add eslint-plugin-prettier eslint-config-prettier -D -w
 
 ### 3.2.3 安装 typescript
 #### 3.2.3.1 创建 react 项目 react-master
-mkdir apps/react-master
-cd apps/react-master
+mkdir packages/apps/react-master
+cd packages/apps/react-master
 pnpm init
 修改 package.json 中项目名，加入 scope，名字为 @john/react-master
 
 // 创建 tsconfig.json
-tsc --init   
+tsc --init  
+
+// 根据教程对 tsconfig.json 做修改
 
 #### 3.2.3.2 到项目根目录去安装一些插件
 pnpm add @typescript-eslint/eslint-plugin -D -w
