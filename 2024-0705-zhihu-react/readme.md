@@ -16,7 +16,7 @@ webpack 的优化不是亮点，因为 webpack 已经做得很好了，没什么
 monorepo
 多个项⽬⽤⼀个代码库来管理依赖关系
 
-# 3. 步骤
+# 3. 准备工作
 ## 3.1 创建项目 monorepo
 
 ### 3.1.1 总项目 初始化
@@ -153,6 +153,54 @@ pnpm add react react-dom @types/react @types/react-dom --filter @john/react-mast
 cd packages/apps
 npx create-react-app demo
 
+// 观察 webpack 的配置
+npm run eject
+
+#### 3.2.4.3 配置 webpack 
+在项目目录下创建目录 scripts ，在其中放入3个 webpack 配置文件：
+webpack.base.js
+webpack.dev.js
+webpack.prod.js
+
+#### 3.2.4.4 创建几个相关的配置文件
+.babelrc
+.postcssrc.js
+
+#### 3.2.4.5 创建 Html 模板文件
+public/index.html
+
+#### 3.2.4.6 配置编译脚本
+在 package.json 中添加如下内容：
+``` json
+"scripts": {
+		"build": "webpack -c scripts/webpack.prod.js",
+		"start": "webpack-dev-server --config scripts/webpack.dev.js"
+}
+```
+
+#### 3.2.4.7 创建项目的入口文件
+src/index.tsx
+src/App.tsx
+
+#### 3.2.4.8 配置 live server
++ 启动 live server 时，root 路径不是根目录，而是 /packages/apps/react-master/dist/
++ 应在 .vscode/settings.json 中添加如下内容：
+``` json
+{
+    "liveServer.settings.root": "/packages/apps/react-master/dist/"
+}
+```
++ vs code 中启动和关闭 live server
+在 vs code 最下的状态栏中，点击左下角的图标(Go Live)，即可启动 live server
+点击 live server 图标（Port:5500），即可关闭 live server
+
+#### 3.2.4.9 项目的编译和开发环境运行
++ 在 /packages/apps/react-master/ 执行：
+    pnpm run build
++ 使 live server 启动
++ 访问地址：http://localhost:5500/
+ 
+
 ### 3.3 路由
 pnpm add react-router-dom --filter @john/react-master
 
@@ -160,9 +208,38 @@ pnpm add react-router-dom --filter @john/react-master
 https://reactrouter.com/en/main  -- 英语，官方
 http://www.reactrouter.cn/docs/ -- 中文
 
+# 4. 开发
+## 4.1 开发目标说明
+### 4.1.1 开发目标
+模仿知乎网站首页的布局，实现一个简单的知乎首页
+https://www.zhihu.com/
+
+### 4.1.2 开发项目(monorepo 结构中的子项目)
+packages/apps/react-master
+
+## 4.2 开发步骤
+### 4.2.1 创建子目录
+在 src 目录下新建4个子目录，分别用于存放`组件、页面、路由、工具`
+```
+dist
+public
+scripts
+src/components -- 组件
+src/pages -- 页面
+src/routes -- 路由
+src/utils -- 工具
+.babelrc
+.postcssrc.js
+package.json
+tailwind.config.js
+tsconfig.json
+```
 
 
-### 2. 创建子目录
+
+
+
+
 components - 组件
 pages
 router
