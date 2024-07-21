@@ -3,8 +3,7 @@ import { Outlet, RouteObject } from "react-router-dom";
 import Home from "../pages/home";
 import Education from "../pages/education";
 import Learning from "../pages/education/learning";
-// import CommandList from "../pages/home/commandList";
-import CommandList from "../pages/home/commandList/comd";
+import CommandList from "../pages/home/commandList";
 
 export interface extraBizObject {
     title?: string;
@@ -38,4 +37,4 @@ export const router: ZHRouter = [
             { path: "waiting", element: <div>waiting</div> },
         ]
     },
-]
+];
