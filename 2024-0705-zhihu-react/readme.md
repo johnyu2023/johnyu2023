@@ -3,18 +3,21 @@
 重新再次搭建项目
 
 # 2. 总结
-实际上 useState useEffect 基本能解决99%的问题，就是可能性能会差一些
++ 实际上 useState useEffect 基本能解决99%的问题，就是可能性能会差一些
 
-亮点是什么？
++ 亮点是什么？
 具备⼀定的思考、技术难度、解决了关键问题。
 • 基于业务，封装公共能⼒，解决业务中的标准问题，并推⼴派⽣；
 • 使⽤⼯程化⼿段，解决⼀类流程或研发逻辑、标准的问题；
 • 你搞了⼀个东西，这个东西之前⾏业没有，并解决了问题。
 
-webpack 的优化不是亮点，因为 webpack 已经做得很好了，没什么可以优化的空间了，无非就是那些 分包、压缩、构建优化、打包优化--并行构建、分析包体积，哪些包排除出去，没啥了
++ webpack 的优化不是亮点，因为 webpack 已经做得很好了，没什么可以优化的空间了，无非就是那些 分包、压缩、构建优化、打包优化--并行构建、分析包体积，哪些包排除出去，没啥了
 
-monorepo
++ monorepo
 多个项⽬⽤⼀个代码库来管理依赖关系
+
++ react 官方文档地址：
+https://zh-hans.react.dev/
 
 # 3. 准备工作
 ## 3.1 创建项目 monorepo
@@ -199,7 +202,21 @@ src/App.tsx
     pnpm run build
 + 使 live server 启动
 + 访问地址：http://localhost:5500/
- 
+
+#### 3.2.4.10 css 模块文件的定义
++ 创建 global.d.ts 文件，在其中声明全局的 css 模块
++ 创建 app.module.css 文件，在其中定义全局的 css 类
++ 在代码中 引入 css 模块，并使用 css 模块中的类名
+
+#### 3.2.4.11 tailwind 相关配置
++ tailwind.config.js
++ index.less
++ 在代码中导入： import "./index.less"
++ 代码中尝试 tailwind
+
+#### 3.2.4.12 安装 vs code 的插件
++ ES7+ React/Redux/React-Native snippets
++ Tailwind CSS IntelliSense
 
 ### 3.3 路由
 pnpm add react-router-dom --filter @john/react-master
@@ -221,12 +238,13 @@ packages/apps/react-master
 ### 4.2.1 创建子目录
 在 src 目录下新建4个子目录，分别用于存放`组件、页面、路由、工具`
 ```
+// /src/ 下的文件和目录
 dist
 public
 scripts
 src/components -- 组件
 src/pages -- 页面
-src/routes -- 路由
+src/router -- 路由
 src/utils -- 工具
 .babelrc
 .postcssrc.js
@@ -235,12 +253,81 @@ tailwind.config.js
 tsconfig.json
 ```
 
+### 4.2.2 创建路由相关文件
++ 创建文件 src/router/index.tsx
++ 创建相关页面，使各个路由跳转都正常显示
++ 子路由需要在页面上定义 <Outlet />
++ 使用了 HashRouter
+```
+http://localhost:3000/
+http://localhost:3000/#/hot
+http://localhost:3000/#/explore
 
+http://localhost:3000/#/education
+http://localhost:3000/#/education/learning
 
+http://localhost:3000/#/question
+http://localhost:3000/#/question/waiting
+```
 
+### 4.2.3 首页的制作
+#### 4.2.3.1 首页中的组件创建 - 大框架，细节稍后处理
++ 创建组件：src/components/navigation/index.tsx  -- 顶部导航栏
++ 创建组件：src/components/card/index.tsx
 
+#### 4.2.3.2 CSS 概念梳理 - 盒模型
+##### 4.2.3.2.1 CSS Box Model
+![](./doc/images/box-model-3d.png)
 
-components - 组件
-pages
-router
-utils
+##### 4.2.3.2.2 CSS Box Model 的区别
+![](./doc/images/box-model-diff.png)
+
++ w3c 标准盒模型：
+盒子总宽度 = width + padding + border + margin
+盒子总高度 = height + padding + border + margin
+
++ ie 盒模型：
+盒子总宽度 = width + margin
+盒子总高度 = height + margin
+
+##### 4.2.3.2.3 box-sizing
+![](./doc/images/box-sizing.png)
+
+box-sizing: content-box|border-box|inherit
+
++ content-box 默认值，元素的 width/height 不包含padding，border，与标准盒子模型表现一致
++ border-box 元素的 width/height 包含 padding，border，与怪异盒子模型表现一致
++ inherit 指定 box-sizing 属性的值，应该从父元素继承
+
+#### 4.2.3.3 NavLink 组件
++ 在React Router库中，NavLink 是一个用于导航的组件，它允许你在应用中创建链接。
++ NavLink 与普通的 <a> 标签或 <Link> 组件相似，但它添加了一些额外的功能，比如基于当前URL自动设置active样式类，这使得它非常适合用于导航菜单或标签页等场景。
++ <a> 标签在默认情况下会导致页面刷新，而 NavLink 和 React Router 一起工作，实现了客户端的路由跳转，不会触发页面刷新
+
+#### 4.2.3.4 导航页面细化 - 首页第一行
++ 子组件 Logo
++ 子组件 NavTab
++ 子组件 Search
++ 子组件 MenuAlarm
+
++ 安装依赖 @headlessui/react @heroicons/react ，用于UI开发
+pnpm add @headlessui/react @heroicons/react --filter @john/react-master
+
+#### 4.2.3.5 页面细化
++ 子组件 Card
++ 子组件 Tabs
+
+#### 4.2.3.5 推荐内容
++ 子组件 CommandList
++ mock 数据
++ css 中 sticky 属性的应用
+
+#### 4.2.3.5 其他组件
++ 子组件 AdvancedBtns
++ 子组件 Creation
++ 子组件 SelfFunctions
+
+### 4.2.4 进一步的功能开发
+#### 4.2.4.1 滚动区域判断
++ IntersectionObserver 是一个强大的API，它提供了一种高效、异步的方法来监测元素与视窗的交叉状态，为开发者实现各种交互效果和性能优化提供了便利。随着浏览器对 IntersectionObserver API 的支持度不断提高，它已经成为现代网页开发中不可或缺的一部分。
+

@@ -99,7 +99,7 @@
     "skipLibCheck": true                                 /* Skip type checking all .d.ts files. */
   },
   "include": [
-    "./src/**/*"
+    "./src/**/*", // 包含src目录下的所有TypeScript文件  
   ],
   "exclude": [
     "node_modules", "dist"
